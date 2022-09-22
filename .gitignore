@@ -46,3 +46,10 @@
 /RecklessSpeech.Front.Tests/obj/*
 /RecklessSpeech.Packaging/bin/*
 /RecklessSpeech.Packaging/obj/*
+/RecklessSpeech.Installer/bin/*
+/RecklessSpeech.Installer/obj/*
+/RecklessSpeech.Installer/RecklessSpeech.Installer_TemporaryKey.pfx
+/RecklessSpeech.Installer/AppPackages/RecklessSpeech.Installer_1.0.0.0_Debug_Test/*
+/RecklessSpeech.Installer/AppPackages/RecklessSpeech.Installer_1.0.1.0_Test/*
+/RecklessSpeech.Installer/RecklessSpeech.Installer_1.0.0.0_Debug_Test/*
+/RecklessSpeech.Installer/RecklessSpeech.Installer_1.0.1.0_Test/*

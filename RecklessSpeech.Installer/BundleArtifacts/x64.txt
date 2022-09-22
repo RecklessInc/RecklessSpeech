@@ -1,0 +1,6 @@
+MainPackage=D:\Dev\MyProjects\RecklessSpeech\RecklessSpeech.Installer\bin\x64\Release\RecklessSpeech.Installer_1.0.1.0_x64.msix
+SymbolPackage=D:\Dev\MyProjects\RecklessSpeech\RecklessSpeech.Installer\obj\x64\Release\Symbols\RecklessSpeech.Installer_1.0.1.0_x64.appxsym
+ResourcePack=D:\Dev\MyProjects\RecklessSpeech\RecklessSpeech.Installer\bin\x64\Release\RecklessSpeech.Installer_1.0.1.0_scale-100.msix
+ResourcePack=D:\Dev\MyProjects\RecklessSpeech\RecklessSpeech.Installer\bin\x64\Release\RecklessSpeech.Installer_1.0.1.0_scale-125.msix
+ResourcePack=D:\Dev\MyProjects\RecklessSpeech\RecklessSpeech.Installer\bin\x64\Release\RecklessSpeech.Installer_1.0.1.0_scale-150.msix
+ResourcePack=D:\Dev\MyProjects\RecklessSpeech\RecklessSpeech.Installer\bin\x64\Release\RecklessSpeech.Installer_1.0.1.0_scale-400.msix

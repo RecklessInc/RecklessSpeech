@@ -1,0 +1,2 @@
+MainPackage=D:\Dev\MyProjects\RecklessSpeech\RecklessSpeech.Installer\bin\x86\Release\RecklessSpeech.Installer_1.0.1.0_x86.msix
+SymbolPackage=D:\Dev\MyProjects\RecklessSpeech\RecklessSpeech.Installer\obj\x86\Release\Symbols\RecklessSpeech.Installer_1.0.1.0_x86.appxsym
