@@ -56,7 +56,7 @@ public class SequenceController : ControllerBase
     [SwaggerResponseErrors((int) HttpStatusCode.NotFound, ApiErrors.ReadSequenceNotFound)]
     public async Task<ActionResult<SequenceSummaryPresentation>> GetOne(Guid sequenceId)
     {
-        SequenceSummaryQueryModel result = await this.dispatcher.Dispatch(new GetOneSequenceQuery(new(sequenceId)));
+        SequenceSummaryQueryModel result = await this.dispatcher.Dispatch(new GetOneSequenceQuery(sequenceId));
         return Ok(result.ToPresentation());
     }
 
