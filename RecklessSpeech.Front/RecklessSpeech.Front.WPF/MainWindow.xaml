@@ -23,6 +23,8 @@
         <Grid.RowDefinitions>
             <RowDefinition x:Name="MenuRow"
                            Height="20" />
+            <RowDefinition x:Name="OptionPanel"
+                           Height="30" />
             <RowDefinition x:Name="ListViewRow"
                            Height="*" />
             <RowDefinition x:Name="ProgressBarRow"
@@ -40,10 +42,14 @@
             </MenuItem>
         </Menu>
 
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Label Content="Dictionary:"/>
+            <ComboBox Width="100" ItemsSource="{Binding Dictionaries}" DisplayMemberPath="Name"/>
+        </StackPanel>
+
         <ListView x:Name="SequenceListView"
-                  Grid.Row="1"
+                  Grid.Row="2"
                   SelectionMode="Multiple"
-                  ItemsSource="{Binding Sequences, Mode=OneWay}"
                   ContextMenuOpening="SequenceListView_ContextMenuOpening">
             <ListView.ContextMenu>
                 <ContextMenu x:Name="ItemContextMenu"
@@ -76,7 +82,7 @@
         </ListView>
 
         <Grid x:Name="ProgressBarGrid"
-              Grid.Row="2">
+              Grid.Row="3">
             <ProgressBar Minimum="0"
                          Maximum="100"
                          Value="{Binding Progress, Mode=OneWay}"

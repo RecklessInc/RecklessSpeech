@@ -85,7 +85,7 @@ namespace RecklessSpeech.Front.WPF.ViewModels
 
         private async Task GetAllDictionaries()
         {
-            var dictionaries = await this.backEndGateway.GetAllDictionaries();
+            List<DictionaryDto> dictionaries = await this.backEndGateway.GetAllDictionaries();
 
             this.Dictionaries = new(dictionaries);
         }

@@ -38,14 +38,6 @@ namespace RecklessSpeech.Front.WPF
 
             MenuItem sendToAnki = new MenuItem() { Header = "Send to Anki" };
             contextMenuItems.Add(sendToAnki);
-
-            var dictionaries = ViewModel.Dictionaries;
-
-            foreach (var dictionary in dictionaries)
-            {
-                MenuItem dictionaryItem = new MenuItem() { Header = dictionary.Name };
-                contextMenuItems.Add(dictionaryItem);
-            }
         }
 
         private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
