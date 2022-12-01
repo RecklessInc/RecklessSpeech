@@ -4,7 +4,7 @@ using System;
 
 namespace RecklessSpeech.Front.WPF.ViewModels
 {
-    public class SequenceDto : INotifyPropertyChanged
+    public class SequenceDto : INotifyPropertyChanged //todo move to dtos
     {
         public Guid Id { get; set; }
 
@@ -27,7 +27,7 @@ namespace RecklessSpeech.Front.WPF.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string name = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            PropertyChanged?.Invoke(this, new(name));
         }
     }
 }

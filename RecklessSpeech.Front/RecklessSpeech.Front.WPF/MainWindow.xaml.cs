@@ -1,6 +1,8 @@
 ﻿using Microsoft.Win32;
+using RecklessSpeech.Front.WPF.Dtos;
 using RecklessSpeech.Front.WPF.ViewModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,12 +23,13 @@ namespace RecklessSpeech.Front.WPF
     {
         // ReSharper disable once MemberCanBePrivate.Global
         public SequencePageViewModel ViewModel => (SequencePageViewModel)this.DataContext;
+        private List<MenuItem> contextMenuItems;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            this.DataContext = new SequencePageViewModel(new HttpBackEndGateway(new HttpBackEndGatewayAccess()));
+            this.DataContext = new SequencePageViewModel(new(new HttpBackEndGatewayAccess()));
         }
 
         private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -45,29 +48,16 @@ namespace RecklessSpeech.Front.WPF
             this.ViewModel.AddSequencesCommand.Execute(filePath);
         }
 
-        private void ContextMenu_Enrich_Click(object sender, RoutedEventArgs e)
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            int total = SequenceListView.SelectedItems.Count;
-            int count = 0;
+            Button? button = (sender as Button);
+            DictionaryDto? dictionaryDto = button!.DataContext as DictionaryDto;
+            IList selectedItems = this.SequenceListView.SelectedItems;
 
-            this.ViewModel.Progress = 0;
-            foreach (SequenceDto sequence in this.SequenceListView.SelectedItems)
+            foreach (SequenceDto sequenceDto in selectedItems)
             {
-                this.ViewModel.EnrichSequenceCommand.Execute(sequence);
-                this.ViewModel.Progress = ++count / total * 100;
-            }
-        }
-
-        private void ContextMenu_Send_to_Anki_Click(object sender, RoutedEventArgs e)
-        {
-            int total = SequenceListView.SelectedItems.Count;
-            int count = 0;
-
-            this.ViewModel.Progress = 0;
-            foreach (SequenceDto sequence in this.SequenceListView.SelectedItems)
-            {
-                this.ViewModel.SendSequenceToAnkiCommand.Execute(sequence);
-                this.ViewModel.Progress = ++count / total * 100;
+                AssignDictionaryToASequenceDto parameter = new(sequenceDto, dictionaryDto!.Id);
+                this.ViewModel.AssignDictionaryToASequenceCommand.Execute(parameter);
             }
         }
     }

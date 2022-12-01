@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RecklessSpeech.Front.WPF.ViewModels
+namespace RecklessSpeech.Front.WPF.Gateway
 {
     public class HttpBackEndGatewayAccess : IBackEndGatewayAccess
     {
@@ -23,10 +23,11 @@ namespace RecklessSpeech.Front.WPF.ViewModels
             return await client.GetAsync(new Uri(url));
         }
 
-        public async Task SendAsync(HttpRequestMessage request)
+        public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request)
         {
             HttpClient client = new();
-            await client.SendAsync(request);
+            HttpResponseMessage response = await client.SendAsync(request);
+            return response;
         }
     }
 }

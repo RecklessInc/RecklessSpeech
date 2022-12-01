@@ -1,4 +1,6 @@
 ﻿using Prism.Commands;
+using RecklessSpeech.Front.WPF.Dtos;
+using RecklessSpeech.Front.WPF.Gateway;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,8 +18,10 @@ namespace RecklessSpeech.Front.WPF.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string? name = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            PropertyChanged?.Invoke(this, new(name));
         }
+
+        public ObservableCollection<DictionaryDto> Dictionaries { get; private set; }
 
         private ObservableCollection<SequenceDto> sequences;
 
@@ -34,7 +38,7 @@ namespace RecklessSpeech.Front.WPF.ViewModels
         private int progress;
         private readonly HttpBackEndGateway backEndGateway;
 
-        public int Progress
+        public int Progress //todo remove
         {
             get
             {
@@ -53,19 +57,34 @@ namespace RecklessSpeech.Front.WPF.ViewModels
         public ICommand AddSequencesCommand { get; }
         public ICommand EnrichSequenceCommand { get; }
         public ICommand SendSequenceToAnkiCommand { get; }
-
+        public ICommand GetDictionariesCommand { get; }
+        public ICommand AssignDictionaryToASequenceCommand { get; }
 
         public SequencePageViewModel(HttpBackEndGateway backEndGateway)
         {
             this.backEndGateway = backEndGateway;
-            this.Sequences = new ObservableCollection<SequenceDto>();
+            this.Sequences = new();
 
             this.AddSequencesCommand = new DelegateCommand<string>(async s => await AddSequences(s));
             this.EnrichSequenceCommand = new DelegateCommand<SequenceDto>(async s => await EnrichSequence(s));
             this.SendSequenceToAnkiCommand = new DelegateCommand<SequenceDto>(async s => await SendSequenceToAnki(s));
+            this.GetDictionariesCommand = new DelegateCommand(async () => await GetAllDictionaries());
+            this.AssignDictionaryToASequenceCommand = new DelegateCommand<AssignDictionaryToASequenceDto>(async dto => await AssignDictionaryToASequence(dto));
+
+
+            GetDictionariesCommand.Execute(null);
         }
 
-        private async Task AddSequences(string filePath)
+        private async Task AssignDictionaryToASequence(AssignDictionaryToASequenceDto dto)
+        {
+            SequenceDto? enriched = await this.backEndGateway.TryEnrichSequence(dto.SequenceDto.Id, dto.DictionaryId);
+            if (enriched is not null)
+            {
+                dto.SequenceDto.Explanation = enriched.Explanation;
+            }
+        }
+
+        private async Task AddSequences(string filePath) //todo rename avec get
         {
             await this.backEndGateway.ImportSequencesFromCsvFile(filePath);
 
@@ -76,6 +95,13 @@ namespace RecklessSpeech.Front.WPF.ViewModels
             {
                 this.Sequences.Add(newSequence);
             }
+        }
+
+        private async Task GetAllDictionaries()
+        {
+            var dictionaries = await this.backEndGateway.GetAllDictionaries();
+
+            this.Dictionaries = new(dictionaries);
         }
 
         private async Task EnrichSequence(SequenceDto sequence)

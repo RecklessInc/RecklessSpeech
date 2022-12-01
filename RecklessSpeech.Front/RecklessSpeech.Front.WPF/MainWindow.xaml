@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:RecklessSpeech.Front.WPF"
         xmlns:converters="clr-namespace:RecklessSpeech.Front.WPF.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow"
+        Height="450"
+        Width="800">
     <Window.Resources>
         <converters:GreenIfNotNullConverter x:Key="GreenIfNotNullConverter" />
     </Window.Resources>
@@ -40,22 +42,26 @@
 
         <ListView x:Name="SequenceListView"
                   Grid.Row="1"
-                  SelectionMode="Multiple"
+                  SelectionMode="Extended"
                   ItemsSource="{Binding Sequences, Mode=OneWay}">
             <ListView.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Enrich with online dictionary"
-                              Click="ContextMenu_Enrich_Click" />
-
-                    <MenuItem Header="Send to Anki"
-                              Click="ContextMenu_Send_to_Anki_Click" />
+                <ContextMenu ItemsSource="{Binding Dictionaries}">
+                    <ContextMenu.ItemTemplate>
+                        <DataTemplate>
+                            <Button Click="ButtonBase_OnClick">
+                                <TextBlock Text="{Binding Name}" />
+                            </Button>
+                        </DataTemplate>
+                    </ContextMenu.ItemTemplate>
                 </ContextMenu>
             </ListView.ContextMenu>
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
 
-                        <GridViewColumn x:Name="SequenceColumn" Width="auto" Header="Word">
+                        <GridViewColumn x:Name="SequenceColumn"
+                                        Width="auto"
+                                        Header="Word">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Word}"

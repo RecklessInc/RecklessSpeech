@@ -1,11 +1,9 @@
 ongoing:
-- get all dictionaries back
-
+- select language dictionary front
 
 
 
 future:
-- get all dictionaries back
 - select language dictionary front
 - appesettings in front with url of back inside
 - package front in store with production appsettings
